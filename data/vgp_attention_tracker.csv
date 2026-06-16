@@ -1,0 +1,14 @@
+unit,issue,action_needed,responsible,status,initials,date_updated,note
+Egersund dykes,New study by Xu et al. 2026 needs to be incorporated,Create new Excel; list component C from dyke sites; name Excel: Egersund dykes (Xu et al 2026),,needs_attention,,,Article in Teams folder; DOI 10.1029/2025GC012730
+Katav Formation,New study by Golovanova et al. 2023 needs to be incorporated,Create new Excel; list Katav Frm; compare to Iloranta_all.xlsx,,needs_attention,,,DOI 10.1016/j.gsf.2023.101558
+All VGP Excel files,Tab naming is inconsistent,"Use rockname for final article data sheet; use inverted for inverted polarity; if several poles, name sheets with rock names",,needs_attention,,,"Avoid names such as FINAL, last_one, Pohja, Suunnan tarkistus"
+Digitized directions,Some directions may be digitized from figures,Indicate clearly in Excel spreadsheets when directions are digitized from figures,,needs_attention,,,Applies where no table exists in the publication
+Mean Burakovskaya,Data need careful checking; SH appears twice; possible specimens vs samples issue,Separate Mertanen et al. 2006 sites; list number of samples not specimens; remove Gabbronorite Shala dike if not in group; compare mean to Iloranta excel,,needs_attention,,,"Mertanen sites listed: BU, BU, BR, BA, SH"
+Zigan clastic rocks,Sample number differs between Iloranta excel N=99 and Zigan clastic data Excel N=173,Explain/verify sample number in column G,,needs_attention,,,
+Winter Coast Sediments,Four sites missing,Check and add missing sites to VGP Excel,,needs_attention,,,
+Zolotitsa (Iglesia Llanos),Sample number column and two spreadsheet meanings need checking,Confirm column G is number of samples; explain difference between the two spreadsheets in Excel file,,needs_attention,,,
+Zolotitsa (Popov),Direction or pole disagrees with Iloranta master; sample number differs,Check direction/pole carefully and explain sample number difference,,needs_attention,,,
+Post Jotnian intrusions,Original publications and site-level data need tracing,"Track down original publications; recover site-level data, e.g. Neuvonen Vaasa dolerite dykes likely several sites",,needs_attention,,,
+Ragunda formation (Piper),Direction differs by more than 5 degrees from Iloranta excel,Check direction and source data,,needs_attention,,,
+Soksha Sandstone,Direction disagrees with Iloranta master; may be digitized,Check whether directions are digitized; note digitization in Excel,,needs_attention,,,
+Onega,Number of samples needs verification,Verify number of accepted samples,,needs_attention,,,

@@ -3,11 +3,32 @@
 :root{--navy:#213952;--blue:#2563eb;--light:#f8fafc;--line:#e5e7eb;--muted:#64748b;--warn:#fff7ed;--ok:#ecfdf5;--bad:#fef2f2;--chip:#eef2ff;}
 *{box-sizing:border-box} body{margin:0;background:#f6f7fb;color:#0f172a;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;font-size:16px;line-height:1.45}.hero{background:var(--navy);color:white;padding:42px 7vw}.hero h1{margin:0;font-size:42px;line-height:1.1}.hero p{font-size:20px;margin:14px 0 0;color:#e2e8f0}.container{max-width:1500px;margin:0 auto;padding:32px 4vw}.card{background:white;border-radius:18px;padding:28px;margin:24px 0;box-shadow:0 8px 28px rgba(15,23,42,.08)}.note-box{border-left:5px solid var(--blue);background:#eff6ff;padding:16px 18px;margin:18px 0}.warn{border-left-color:#f59e0b;background:var(--warn)}.bad{border-left-color:#ef4444;background:var(--bad)}.ok{border-left-color:#10b981;background:var(--ok)}a{color:#06c} .controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0}.controls input,.controls select{font-size:16px;padding:12px 14px;border:1px solid #cbd5e1;border-radius:10px;background:white;min-width:240px}.table-wrap{width:100%;overflow:auto;border:1px solid var(--line);border-radius:12px;background:white}table{border-collapse:collapse;width:100%;font-size:15px}th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}th{background:#f1f5f9;font-weight:700;position:sticky;top:0;z-index:1}.badge{display:inline-block;padding:5px 10px;border-radius:999px;background:#e2e8f0;font-weight:700}.rating-A{background:#dcfce7}.rating-B{background:#e0ecff}.rating-C\+{background:#fff7ed}.status{display:inline-block;padding:5px 10px;border-radius:8px;font-size:13px;font-weight:700;background:#e2e8f0}.status-exact{background:#dcfce7}.status-strong{background:#e0f2fe}.status-manual{background:#fef3c7}.status-exact_empty,.status-missing{background:#fee2e2}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.info{background:#f8fafc;border:1px solid #dbe1ea;border-radius:12px;padding:16px}.label{font-weight:700;color:#334155}.value{font-size:18px}.small{font-size:14px;color:var(--muted)}.empty{color:#64748b;font-style:italic}.back{display:inline-block;margin:16px 0 0}.footer{color:#64748b;font-size:14px;margin-top:20px}.pillrow{display:flex;gap:10px;flex-wrap:wrap}.summary-pill{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:999px;padding:8px 12px;font-weight:600}
 </style></head>
-<body><header class="hero"><h1>Baltica Precambrian Pole Compilation</h1><p>Database-linked prototype generated from the master pole table, site-level workbook, and pole-sheet matching table.</p></header>
+<body><header class="hero"><h1>Baltica Precambrian Pole Compilation</h1><p>Database-linked prototype with Laurentia-style assessment scaffold generated from the master pole table, site-level workbook, and pole-sheet matching table.</p></header>
 <main class="container">
-<section class="card"><h2>Overview</h2><p>This is a working prototype. The master table is searchable/filterable, and each pole links to a generated assessment page with pole metadata, matched site-level sheet, match status, and current site-level data.</p>
-<div class="note-box"><b>Current source files:</b> <code>data/Baltica_poles.csv</code>, <code>data/site_level_data_site_comments_added.xlsx</code>, and <code>data/pole_sheet_match.csv</code>.</div>
+<section class="card"><h2>Overview</h2><p>This is a working prototype. The master table is searchable/filterable, and each pole links to a generated assessment page with pole metadata, matched site-level sheet, match status, current site-level data, and placeholder assessment sections following the requested Laurentia-style structure.</p>
+<div class="note-box"><b>Current source files:</b> <code>data/Baltica_poles.csv</code>, <code>data/site_level_data_site_comments_added.xlsx</code>, <code>data/pole_sheet_match.csv</code>, <code>data/pole_assessment_notes_template.csv</code>, and <code>data/vgp_attention_tracker.csv</code>.</div>
 <div class="pillrow"><span class="summary-pill">Poles: 63</span><span class="summary-pill">exact: 27</span><span class="summary-pill">exact_empty: 3</span><span class="summary-pill">manual: 13</span><span class="summary-pill">manual_check: 2</span><span class="summary-pill">manual_empty: 1</span><span class="summary-pill">strong: 17</span></div></section>
+<section class="card"><h2>Assessment-page structure</h2>
+<p>Each pole page now contains the seven requested assessment headings:</p>
+<ol>
+<li>Geological context</li>
+<li>Magnetization components</li>
+<li>Age constraints</li>
+<li>Site-level data</li>
+<li>PSV variation</li>
+<li>Comparison to Baltica A-/B-grade poles</li>
+<li>Comparison to younger Baltica poles</li>
+</ol>
+<div class="note-box warn"><b>Important:</b> these scientific assessment sections are placeholders for now. They should be filled gradually from checked scientific notes, while site-level Excel files remain a living dataset.</div>
+</section>
+<section class="card"><h2>Update workflow</h2>
+<p>The webpage should be treated as a living database. Edit the source data files first, then regenerate the website outputs.</p>
+<div class="grid">
+<div class="info"><div class="label">Scientific inputs</div><div class="value small"><code>data/Baltica_poles.csv</code><br><code>data/site_level_data_site_comments_added.xlsx</code><br><code>data/pole_sheet_match.csv</code><br><code>data/pole_assessment_notes_template.csv</code><br><code>data/vgp_attention_tracker.csv</code></div></div>
+<div class="info"><div class="label">Generated outputs</div><div class="value small"><code>index.html</code><br><code>pole_assessments/*.html</code></div></div>
+<div class="info"><div class="label">Rule</div><div class="value small">Do not manually edit generated HTML pages for scientific content. Update input files and regenerate.</div></div>
+</div>
+</section>
 <section class="card"><h2>Reliability rating</h2><p><b>Grade A</b> poles are the most reliable; <b>Grade B</b> poles are likely reliable but may lack one or more criteria; <b>Grade C+</b> entries are retained for review/filtering in this prototype.</p></section>
 <section class="card"><h2>Pole compilation</h2><div class="controls"><input id="search" type="search" placeholder="Search unit, terrane, reference, sheet..."><select id="rating"><option value="">All ratings</option><option>A</option><option>B</option><option>C+</option></select><select id="status"><option value="">All match statuses</option><option>exact</option><option>strong</option><option>manual</option><option>exact_empty</option><option>missing</option></select></div><div id="table"></div></section>
 </main><script>
