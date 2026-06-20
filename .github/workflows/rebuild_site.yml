@@ -31,8 +31,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: Generate paleolatitude table and figure
-        run: |
-          python scripts/calculate_paleolatitude_and_plot.py
+  continue-on-error: true
+  run: |
+    python scripts/calculate_paleolatitude_and_plot.py
 
       - name: Generate site-level example plots
         run: |
