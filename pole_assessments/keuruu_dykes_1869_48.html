@@ -135,6 +135,259 @@ body{background:#f6f7fb;}
 <p class="footer">Future assessment text should come from human-checked scientific input files, not manual HTML editing. Regenerate pages after updating source data.</p>
 </section>
 
-<section class="card"><h2>Site-level data</h2><div class="table-wrap"><table><thead><tr><th>site</th><th>dir_dec</th><th>dir_inc</th><th>dir_k</th><th>dir_alpha95</th><th>dir_n_samples</th><th>vgp_lat</th><th>vgp_lon</th><th>Comment</th></tr></thead><tbody><tr><td>
-KT</td><td>356.2</td><td>41.8</td><td>-</td><td>-</td><td>1</td><td>51.7</td><td>210.3</td><td>need check</td></tr><tr><td>A1</td><td>344.2</td><td>34.5</td><td>-</td><td>-</td><td>2</td><td>45.4</td><td>226.2</td><td>need check</td></tr><tr><td>A2</td><td>336.5</td><td>37.2</td><td>101.5</td><td>9.2</td><td>4</td><td>45.7</td><td>236.7</td><td>need check</td></tr><tr><td>A3</td><td>344.3</td><td>22.4</td><td>32.1</td><td>22.1</td><td>3</td><td>38.2</td><td>224.3</td><td>need check</td></tr><tr><td>A4</td><td>344.4</td><td>40.7</td><td>59.3</td><td>7.9</td><td>7</td><td>49.7</td><td>227.3</td><td>need check</td></tr><tr><td>A6</td><td>339.5</td><td>22.7</td><td>43.4</td><td>18.9</td><td>3</td><td>37.7</td><td>230</td><td>need check</td></tr><tr><td>A7</td><td>346.4</td><td>31.5</td><td>-</td><td>-</td><td>2</td><td>43.9</td><td>222.8</td><td>need check</td></tr><tr><td>A8</td><td>341.6</td><td>45.7</td><td>-</td><td>-</td><td>1</td><td>52.8</td><td>232.5</td><td>need check</td></tr><tr><td>B1</td><td>341.6</td><td>44.2</td><td>73.1</td><td>14.5</td><td>3</td><td>52.1</td><td>232.3</td><td>need check</td></tr><tr><td>C1</td><td>341.9</td><td>32.6</td><td>25.7</td><td>15.4</td><td>4</td><td>44.3</td><td>228.3</td><td>need check</td></tr><tr><td>NA</td><td>351.1</td><td>23.4</td><td>13.9</td><td>34.4</td><td>3</td><td>40</td><td>216.6</td><td>need check</td></tr><tr><td>OA</td><td>358.4</td><td>35.8</td><td>-</td><td>-</td><td>2</td><td>48.5</td><td>206.7</td><td>need check</td></tr><tr><td>PK</td><td>353.3</td><td>28.1</td><td>57.5</td><td>12.2</td><td>4</td><td>42.5</td><td>213.3</td><td>need check</td></tr><tr><td>SK</td><td>348.2</td><td>39.5</td><td>39.5</td><td>19.9</td><td>3</td><td>49.8</td><td>221.7</td><td>need check</td></tr><tr><td>TK</td><td>354.4</td><td>45</td><td>130.1</td><td>10.9</td><td>3</td><td>54.2</td><td>213.5</td><td>need check</td></tr><tr><td>KD</td><td>334.7</td><td>46.6</td><td>223.4</td><td>5.1</td><td>5</td><td>52</td><td>242.6</td><td>need check</td></tr><tr><td>TP</td><td>346.8</td><td>54.9</td><td>-</td><td>-</td><td>2</td><td>61.9</td><td>227.8</td><td>need check</td></tr><tr><td>R1</td><td>132.1</td><td>-18.1</td><td>175.2</td><td>5.1</td><td>6</td><td>-26.8</td><td>79.8</td><td>need check</td></tr><tr><td>R2</td><td>136.9</td><td>-26.1</td><td>30.3</td><td>17</td><td>4</td><td>-33.2</td><td>77.4</td><td>need check</td></tr><tr><td>R3</td><td>141.3</td><td>-24.7</td><td>21.6</td><td>16.8</td><td>5</td><td>-34.2</td><td>71.1</td><td>need check</td></tr><tr><td>RV</td><td>145.5</td><td>-30.3</td><td>-</td><td>-</td><td>1</td><td>-38</td><td>68.4</td><td>need check</td></tr></tbody></table></div><p class="footer">Source workbook: <code>data/site_level_data_site_comments_added.xlsx</code>. This page is generated from the current workbook and <code>data/pole_sheet_match.csv</code>.</p></section>
+<section class="card" id="site-level-data">
+  <h2>Site-level data</h2>
+  <div class="table-wrap">
+<table>
+<thead><tr>
+<th>site</th>
+<th>dir_dec</th>
+<th>dir_inc</th>
+<th>dir_n_samples</th>
+<th>dir_k</th>
+<th>dir_alpha95</th>
+<th>vgp_lat</th>
+<th>vgp_lon</th>
+<th>comment</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+KT</td>
+<td>356.2</td>
+<td>41.8</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>51.7</td>
+<td>210.3</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>A1</td>
+<td>344.2</td>
+<td>34.5</td>
+<td>2</td>
+<td>-</td>
+<td>-</td>
+<td>45.4</td>
+<td>226.2</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>336.5</td>
+<td>37.2</td>
+<td>4</td>
+<td>101.5</td>
+<td>9.2</td>
+<td>45.7</td>
+<td>236.7</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>A3</td>
+<td>344.3</td>
+<td>22.4</td>
+<td>3</td>
+<td>32.1</td>
+<td>22.1</td>
+<td>38.2</td>
+<td>224.3</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>A4</td>
+<td>344.4</td>
+<td>40.7</td>
+<td>7</td>
+<td>59.3</td>
+<td>7.9</td>
+<td>49.7</td>
+<td>227.3</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>A6</td>
+<td>339.5</td>
+<td>22.7</td>
+<td>3</td>
+<td>43.4</td>
+<td>18.9</td>
+<td>37.7</td>
+<td>230</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>A7</td>
+<td>346.4</td>
+<td>31.5</td>
+<td>2</td>
+<td>-</td>
+<td>-</td>
+<td>43.9</td>
+<td>222.8</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>A8</td>
+<td>341.6</td>
+<td>45.7</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>52.8</td>
+<td>232.5</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>B1</td>
+<td>341.6</td>
+<td>44.2</td>
+<td>3</td>
+<td>73.1</td>
+<td>14.5</td>
+<td>52.1</td>
+<td>232.3</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>C1</td>
+<td>341.9</td>
+<td>32.6</td>
+<td>4</td>
+<td>25.7</td>
+<td>15.4</td>
+<td>44.3</td>
+<td>228.3</td>
+<td>need check</td>
+</tr>
+<tr>
+<td></td>
+<td>351.1</td>
+<td>23.4</td>
+<td>3</td>
+<td>13.9</td>
+<td>34.4</td>
+<td>40</td>
+<td>216.6</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>OA</td>
+<td>358.4</td>
+<td>35.8</td>
+<td>2</td>
+<td>-</td>
+<td>-</td>
+<td>48.5</td>
+<td>206.7</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>PK</td>
+<td>353.3</td>
+<td>28.1</td>
+<td>4</td>
+<td>57.5</td>
+<td>12.2</td>
+<td>42.5</td>
+<td>213.3</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>SK</td>
+<td>348.2</td>
+<td>39.5</td>
+<td>3</td>
+<td>39.5</td>
+<td>19.9</td>
+<td>49.8</td>
+<td>221.7</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>TK</td>
+<td>354.4</td>
+<td>45</td>
+<td>3</td>
+<td>130.1</td>
+<td>10.9</td>
+<td>54.2</td>
+<td>213.5</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>KD</td>
+<td>334.7</td>
+<td>46.6</td>
+<td>5</td>
+<td>223.4</td>
+<td>5.1</td>
+<td>52</td>
+<td>242.6</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>TP</td>
+<td>346.8</td>
+<td>54.9</td>
+<td>2</td>
+<td>-</td>
+<td>-</td>
+<td>61.9</td>
+<td>227.8</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>R1</td>
+<td>132.1</td>
+<td>-18.1</td>
+<td>6</td>
+<td>175.2</td>
+<td>5.1</td>
+<td>-26.8</td>
+<td>79.8</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>136.9</td>
+<td>-26.1</td>
+<td>4</td>
+<td>30.3</td>
+<td>17</td>
+<td>-33.2</td>
+<td>77.4</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>141.3</td>
+<td>-24.7</td>
+<td>5</td>
+<td>21.6</td>
+<td>16.8</td>
+<td>-34.2</td>
+<td>71.1</td>
+<td>need check</td>
+</tr>
+<tr>
+<td>RV</td>
+<td>145.5</td>
+<td>-30.3</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>-38</td>
+<td>68.4</td>
+<td>need check</td>
+</tr>
+</tbody></table></div>
+  <p class="small-note">
+    Source workbook: <code>data/site_level_data_site_comments_added.xlsx</code>;
+    sheet: <strong>Keuruu dykes </strong>.
+    This table is regenerated automatically from the workbook.
+  </p>
+</section>
 </div></main></div></body></html>
