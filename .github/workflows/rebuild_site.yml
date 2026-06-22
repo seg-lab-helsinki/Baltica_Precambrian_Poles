@@ -34,8 +34,12 @@ jobs:
         run: |
           python scripts/make_site_level_example_plots.py
 
+      - name: Rebuild pole assessment site-level tables
+        run: |
+          python scripts/rebuild_pole_assessment_pages.py
+
       - name: Commit generated outputs
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Auto rebuild site-level figures"
-          file_pattern: "figures/**/*.png"
+          commit_message: "Auto rebuild site-level figures and tables"
+          file_pattern: "figures/**/*.png pole_assessments/*.html"
