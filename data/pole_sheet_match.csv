@@ -62,3 +62,4 @@
 61,volyn_dniestr_bug_intrusions_1755,Volyn Dniestr Bug intrusions,1755,A,Elming et al. (2010),Volyn-Dniestr-Bug intrusions gE,5,strong,
 62,volyn_dniestr_bug_intrusions_2000,Volyn Dniestr Bug intrusions,2000,B,Elming et al. (2010),Volyn-Dniestr-Bug intrusions gE,5,strong,
 63,volyn_dniestr_bug_intrusions_a_group_2061,Volyn Dniestr Bug intrusions A group,2061,B,Elming et al. (2010),Volyn-Dniestr-Bug intrusions gA,3,manual,
+999,laurentia_sept_iles_layered_intrusion_check,Laurentia Sept-Iles Layered Intrusion benchmark,565,check,"Tanczyk et al. (1987); Bono and Tarduno (2015)",Sept-Iles Layered Intrusion,10,benchmark,Not part of Baltica compilation; used only as Laurentia benchmark check
