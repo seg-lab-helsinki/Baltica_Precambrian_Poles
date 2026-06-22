@@ -3,3 +3,5 @@ openpyxl
 matplotlib
 numpy
 cartopy
+folium
+branca
