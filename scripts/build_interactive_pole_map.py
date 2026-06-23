@@ -56,7 +56,6 @@ def norm(s):
 
 
 def read_csv_flexible(path):
-    # Your Baltica_poles.csv is semicolon-separated and may use Windows/European encoding.
     encodings = ["utf-8-sig", "cp1252", "latin1"]
     separators = [";", ",", "\t"]
 
@@ -77,8 +76,6 @@ def read_csv_flexible(path):
                 pass
 
     raise ValueError(f"Could not read CSV file correctly: {path}")
-
-
 def pick_col(df, names, required=False):
     lookup = {norm(c): c for c in df.columns}
     for n in names:
