@@ -32,6 +32,8 @@ jobs:
 
       - name: Build interactive pole map
         run: python scripts/build_interactive_pole_map.py
+        - name: Build pole compilation page
+        run: python scripts/build_pole_compilation_page.py
         
       - name: Generate site-level example plots
         run: |
