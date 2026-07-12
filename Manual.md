@@ -298,8 +298,11 @@ scripts/rebuild_pole_assessment_pages.py
 Their roles are:
 
 - `build_interactive_pole_map.py`: creates `pages/interactive_pole_map.html`.
+- 
 - `build_pole_compilation_page.py`: creates `pages/pole_compilation.html`.
+- 
 - `make_site_level_example_plots.py`: creates PNG site-level figures.
+- 
 - `rebuild_pole_assessment_pages.py`: creates/updates pole assessment pages.
 
 ---
