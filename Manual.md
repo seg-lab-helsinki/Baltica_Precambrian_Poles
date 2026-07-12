@@ -303,6 +303,18 @@ Their roles are:
 - `rebuild_pole_assessment_pages.py`: creates/updates pole assessment pages.
 
 ---
+Important note about scripts
+
+The Python scripts are part of the repository source code. They should not be copied line-by-line from this manual. If creating the webpage from zero, copy the complete scripts/ folder from the working Baltica_Precambrian_Poles repository, or upload the prepared script files into scripts/.
+
+The required scripts are:
+
+scripts/build_interactive_pole_map.py
+scripts/build_pole_compilation_page.py
+scripts/make_site_level_example_plots.py
+scripts/rebuild_pole_assessment_pages.py
+
+If any of these files are missing, the GitHub Actions rebuild will fail.
 
 ## 11. Create the GitHub Actions workflow
 
