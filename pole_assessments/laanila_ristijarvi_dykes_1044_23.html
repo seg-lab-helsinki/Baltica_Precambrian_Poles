@@ -135,5 +135,158 @@ body{background:#f6f7fb;}
 <p class="footer">Future assessment text should come from human-checked scientific input files, not manual HTML editing. Regenerate pages after updating source data.</p>
 </section>
 
-<section class="card"><h2>Site-level data</h2><div class="table-wrap"><table><thead><tr><th>site</th><th>dir_dec</th><th>dir_inc</th><th>dir_k</th><th>dir_alpha95</th><th>dir_n_samples</th><th>vgp_lat</th><th>vgp_lon</th><th>Comment</th></tr></thead><tbody><tr><td>Mean LT</td><td>357.3</td><td>-52.5</td><td>36.3</td><td>8.7</td><td>9</td><td>-11.6087</td><td>210.4</td><td></td></tr><tr><td>LK</td><td>350.7</td><td>-34.4</td><td>100.9</td><td>3.8</td><td>15</td><td>2.43844</td><td>216.303</td><td></td></tr><tr><td>LJ</td><td>350.3</td><td>-34.4</td><td>30.1</td><td>7.7</td><td>13</td><td>2.41542</td><td>216.681</td><td></td></tr><tr><td>KJ</td><td>355.6</td><td>-30.3</td><td>56.4</td><td>10.3</td><td>5</td><td>4.6546</td><td>213.137</td><td></td></tr><tr><td>KK</td><td>355.5</td><td>-31.1</td><td></td><td></td><td>1</td><td>4.1</td><td>213.2</td><td></td></tr><tr><td>KO</td><td>1.7</td><td>-30.8</td><td>675.6</td><td>2.6</td><td>5</td><td>4.39411</td><td>207.266</td><td></td></tr><tr><td>KL</td><td>4.1</td><td>-40</td><td>145</td><td>5.6</td><td>6</td><td>-1.80896</td><td>205.2</td><td></td></tr></tbody></table></div><p class="footer">Source workbook: <code>data/site_level_data_site_comments_added.xlsx</code>. This page is generated from the current workbook and <code>data/pole_sheet_match.csv</code>.</p></section>
+<section class="card" id="site-level-data">
+  <h2>Site-level data</h2>
+  <div class="table-wrap">
+<table>
+<thead><tr>
+<th>site</th>
+<th>dir_dec</th>
+<th>dir_inc</th>
+<th>dir_k</th>
+<th>dir_alpha95</th>
+<th>dir_n_samples</th>
+<th>vgp_lat</th>
+<th>vgp_lon</th>
+<th>authors</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Mean LT</td>
+<td>357.3</td>
+<td>-52.5</td>
+<td>36.3</td>
+<td>8.7</td>
+<td>9</td>
+<td>-11.6087</td>
+<td>210.4</td>
+<td>Mertanen et al. (1996)</td>
+</tr>
+<tr>
+<td>LK</td>
+<td>350.7</td>
+<td>-34.4</td>
+<td>100.9</td>
+<td>3.8</td>
+<td>15</td>
+<td>2.43844</td>
+<td>216.303</td>
+<td>Mertanen et al. (1996)</td>
+</tr>
+<tr>
+<td>LJ</td>
+<td>350.3</td>
+<td>-34.4</td>
+<td>30.1</td>
+<td>7.7</td>
+<td>13</td>
+<td>2.41542</td>
+<td>216.681</td>
+<td>Mertanen et al. (1996)</td>
+</tr>
+<tr>
+<td>KJ</td>
+<td>355.6</td>
+<td>-30.3</td>
+<td>56.4</td>
+<td>10.3</td>
+<td>5</td>
+<td>4.6546</td>
+<td>213.137</td>
+<td>Mertanen et al. (1996)</td>
+</tr>
+<tr>
+<td>KK</td>
+<td>355.5</td>
+<td>-31.1</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>4.1</td>
+<td>213.2</td>
+<td>Mertanen et al. (1996)</td>
+</tr>
+<tr>
+<td>KO</td>
+<td>1.7</td>
+<td>-30.8</td>
+<td>675.6</td>
+<td>2.6</td>
+<td>5</td>
+<td>4.39411</td>
+<td>207.266</td>
+<td>Mertanen et al. (1996)</td>
+</tr>
+<tr>
+<td>KL</td>
+<td>4.1</td>
+<td>-40</td>
+<td>145</td>
+<td>5.6</td>
+<td>6</td>
+<td>-1.80896</td>
+<td>205.2</td>
+<td>Mertanen et al. (1996)</td>
+</tr>
+</tbody>
+</table>
+</div>
+  <p class="small-note">
+    Source workbook: <code>data/site_level_data_site_comments_added.xlsx</code>;
+    sheet: <strong>Laanila Ristijärvi Dykes</strong>.
+    This table is regenerated automatically from the workbook.
+  </p>
+</section>
+
+<section class="card" id="site-level-direction-scatter">
+  <h2>Site-level direction scatter</h2>
+  <p>
+    Tilt-corrected site directions for <strong>Laanila Ristijärvi Dykes</strong>.
+    Filled and open symbols distinguish positive and negative inclinations.
+    This plot shows the scatter of individual site directions behind the mean pole.
+  </p>
+  <figure>
+    <img src="../figures/site_level_examples/laanila_ristij_rvi_dykes/direction_stereonet.png"
+         alt="Laanila Ristijärvi Dykes site direction stereonet"
+         style="width:100%; max-width:850px; border-radius:12px;">
+    <figcaption>
+      Site-level direction scatter for Laanila Ristijärvi Dykes.
+      No polarity unification is applied in this diagnostic plot.
+    </figcaption>
+  </figure>
+</section>
+
+<section class="card" id="site-level-vgp-globe">
+  <h2>Site-level VGPs and mean pole</h2>
+  <p>
+    Site-level VGPs are plotted on an orthographic globe together with the Fisher mean
+    pole and its circular A95 confidence region. This is the Laurentia-style view needed
+    to inspect the spatial scatter of the site poles.
+  </p>
+  <figure>
+    <img src="../figures/site_level_examples/laanila_ristij_rvi_dykes/vgp_globe.png"
+         alt="Laanila Ristijärvi Dykes VGP globe"
+         style="width:100%; max-width:850px; border-radius:12px;">
+    <figcaption>
+      Site-level VGPs, mean pole, and A95 confidence circle for Laanila Ristijärvi Dykes.
+    </figcaption>
+  </figure>
+</section>
+
+<section class="card" id="site-level-psv-deenen">
+  <h2>Paleosecular variation</h2>
+  <p>
+    The Deenen et al. (2011) diagnostic compares the pole A95 with the expected range
+    for the number of site-level VGPs. This provides a first-order PSV-style check.
+  </p>
+  <figure>
+    <img src="../figures/site_level_examples/laanila_ristij_rvi_dykes/deenen_psv.png"
+         alt="Laanila Ristijärvi Dykes Deenen PSV diagnostic"
+         style="width:100%; max-width:850px; border-radius:12px;">
+    <figcaption>
+      Deenen-style A95 versus number-of-sites diagnostic for Laanila Ristijärvi Dykes.
+    </figcaption>
+  </figure>
+</section>
+
 </div></main></div></body></html>

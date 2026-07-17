@@ -135,5 +135,147 @@ body{background:#f6f7fb;}
 <p class="footer">Future assessment text should come from human-checked scientific input files, not manual HTML editing. Regenerate pages after updating source data.</p>
 </section>
 
-<section class="card"><h2>Site-level data</h2><div class="table-wrap"><table><thead><tr><th>site</th><th>dir_dec</th><th>dir_inc</th><th>dir_k</th><th>dir_alpha95</th><th>dir_n_samples</th><th>vgp_lat</th><th>vgp_lon</th><th>Comment</th></tr></thead><tbody><tr><td>1</td><td>281</td><td>-78</td><td>91</td><td>6</td><td>10</td><td>-48.5434</td><td>222.456</td><td></td></tr><tr><td>2</td><td>308</td><td>-71</td><td>252</td><td>4</td><td>13</td><td>-31.6583</td><td>218.673</td><td></td></tr><tr><td>3</td><td>313</td><td>-70</td><td>327</td><td>4</td><td>8</td><td>-29.0093</td><td>216.483</td><td></td></tr><tr><td>4</td><td>249</td><td>-75</td><td>74</td><td>9</td><td>13</td><td>-57.3689</td><td>241.864</td><td></td></tr><tr><td>5</td><td>315</td><td>-77</td><td>178</td><td>3</td><td>15</td><td>-38.6297</td><td>209.299</td><td></td></tr><tr><td>6</td><td>286</td><td>-71</td><td>174</td><td>4</td><td>10</td><td>-38.6431</td><td>231.27</td><td></td></tr></tbody></table></div><p class="footer">Source workbook: <code>data/site_level_data_site_comments_added.xlsx</code>. This page is generated from the current workbook and <code>data/pole_sheet_match.csv</code>.</p></section>
+<section class="card" id="site-level-data">
+  <h2>Site-level data</h2>
+  <div class="table-wrap">
+<table>
+<thead><tr>
+<th>site</th>
+<th>dir_dec</th>
+<th>dir_inc</th>
+<th>dir_k</th>
+<th>dir_alpha95</th>
+<th>dir_n_samples</th>
+<th>vgp_lat</th>
+<th>vgp_lon</th>
+<th>authors</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>281</td>
+<td>-78</td>
+<td>91</td>
+<td>6</td>
+<td>10</td>
+<td>-48.5434</td>
+<td>222.456</td>
+<td>Walderhaug et al. (1999)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>308</td>
+<td>-71</td>
+<td>252</td>
+<td>4</td>
+<td>13</td>
+<td>-31.6583</td>
+<td>218.673</td>
+<td>Walderhaug et al. (1999)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>313</td>
+<td>-70</td>
+<td>327</td>
+<td>4</td>
+<td>8</td>
+<td>-29.0093</td>
+<td>216.483</td>
+<td>Walderhaug et al. (1999)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>249</td>
+<td>-75</td>
+<td>74</td>
+<td>9</td>
+<td>13</td>
+<td>-57.3689</td>
+<td>241.864</td>
+<td>Walderhaug et al. (1999)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>315</td>
+<td>-77</td>
+<td>178</td>
+<td>3</td>
+<td>15</td>
+<td>-38.6297</td>
+<td>209.299</td>
+<td>Walderhaug et al. (1999)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>286</td>
+<td>-71</td>
+<td>174</td>
+<td>4</td>
+<td>10</td>
+<td>-38.6431</td>
+<td>231.27</td>
+<td>Walderhaug et al. (1999)</td>
+</tr>
+</tbody>
+</table>
+</div>
+  <p class="small-note">
+    Source workbook: <code>data/site_level_data_site_comments_added.xlsx</code>;
+    sheet: <strong>Hunnedalen Dykes</strong>.
+    This table is regenerated automatically from the workbook.
+  </p>
+</section>
+
+<section class="card" id="site-level-direction-scatter">
+  <h2>Site-level direction scatter</h2>
+  <p>
+    Tilt-corrected site directions for <strong>Hunnedalen Dykes</strong>.
+    Filled and open symbols distinguish positive and negative inclinations.
+    This plot shows the scatter of individual site directions behind the mean pole.
+  </p>
+  <figure>
+    <img src="../figures/site_level_examples/hunnedalen_dykes/direction_stereonet.png"
+         alt="Hunnedalen Dykes site direction stereonet"
+         style="width:100%; max-width:850px; border-radius:12px;">
+    <figcaption>
+      Site-level direction scatter for Hunnedalen Dykes.
+      No polarity unification is applied in this diagnostic plot.
+    </figcaption>
+  </figure>
+</section>
+
+<section class="card" id="site-level-vgp-globe">
+  <h2>Site-level VGPs and mean pole</h2>
+  <p>
+    Site-level VGPs are plotted on an orthographic globe together with the Fisher mean
+    pole and its circular A95 confidence region. This is the Laurentia-style view needed
+    to inspect the spatial scatter of the site poles.
+  </p>
+  <figure>
+    <img src="../figures/site_level_examples/hunnedalen_dykes/vgp_globe.png"
+         alt="Hunnedalen Dykes VGP globe"
+         style="width:100%; max-width:850px; border-radius:12px;">
+    <figcaption>
+      Site-level VGPs, mean pole, and A95 confidence circle for Hunnedalen Dykes.
+    </figcaption>
+  </figure>
+</section>
+
+<section class="card" id="site-level-psv-deenen">
+  <h2>Paleosecular variation</h2>
+  <p>
+    The Deenen et al. (2011) diagnostic compares the pole A95 with the expected range
+    for the number of site-level VGPs. This provides a first-order PSV-style check.
+  </p>
+  <figure>
+    <img src="../figures/site_level_examples/hunnedalen_dykes/deenen_psv.png"
+         alt="Hunnedalen Dykes Deenen PSV diagnostic"
+         style="width:100%; max-width:850px; border-radius:12px;">
+    <figcaption>
+      Deenen-style A95 versus number-of-sites diagnostic for Hunnedalen Dykes.
+    </figcaption>
+  </figure>
+</section>
+
 </div></main></div></body></html>
