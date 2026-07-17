@@ -13,3 +13,4 @@ This version keeps the working database-linked pages and adds a persistent left 
 
 ## Workflow
 Edit source files in `data/`, then regenerate `index.html` and `pole_assessments/*.html`. Do not use generated HTML as the scientific source.
+Site-level database updated: 17 July 2026.
