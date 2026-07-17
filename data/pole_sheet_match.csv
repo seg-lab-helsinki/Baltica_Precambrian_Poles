@@ -1,5 +1,5 @@
 ﻿master_row,pole_id,unit,age_ma,rating,reference,sheet_name,sheet_rows,match_status,note
-1,zigan_formation_clastic_rocks_c_548,Zigan formation clastic rocks C,548,B,Levashova et al. (2013),Zigan Fm clastic,39,manual,
+1,zigan_formation_clastic_rocks_c_548,Zigan formation clastic rocks C,548,B,Levashova et al. (2013),zigan_formation_clastic_rocks_c,39,manual,
 2,zigan_htc_thin_beds_548,Zigan HTC thin beds,548,B,Bazhenov et al. (2016),Zigan HTC thin beds,6,manual,
 3,mean_vendian_sediments_556,MEAN Vendian sediments,556,B,"Popov et al. (2002, 2005); Iglesia Llanos (2005); Fedorova et al. (2014)",MEAN Vendian sediments,0,exact_empty,
 4,winter_coast_sediments_556,Winter Coast Sediments,556,B,Popov et al. (2002),Winter Coast Sediments,91,exact,
