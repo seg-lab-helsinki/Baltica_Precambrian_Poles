@@ -34,9 +34,13 @@ jobs:
         run: |
           python scripts/build_interactive_pole_map.py
 
-      - name: Build pole compilation page
+      - name: Build pole compilation home page
         run: |
           python scripts/build_pole_compilation_page.py
+
+      - name: Generate paleolatitude figure and page
+        run: |
+          python scripts/calculate_paleolatitude_and_plot.py
 
       - name: Generate site-level example plots
         run: |
@@ -50,8 +54,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull --rebase --autostash origin main
-          git add figures/ pole_assessments/ pages/
+
+          git add -A
+
           if git diff --cached --quiet; then
             echo "No generated changes to commit"
           else
