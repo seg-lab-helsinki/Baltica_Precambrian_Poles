@@ -69,13 +69,17 @@ def clean_number(value: object) -> float | None:
         if isinstance(value, float) and math.isnan(value):
             return None
         return float(value)
+
     text = clean_text(value)
     if text == "":
         return None
+
     text = text.replace(",", ".")
     text = re.sub(r"[^0-9.+\-eE]", "", text)
+
     if text in {"", "+", "-", "."}:
         return None
+
     try:
         return float(text)
     except ValueError:
@@ -103,6 +107,7 @@ def normalize_header(value: object) -> str:
 def normalize_grade(value: object) -> str:
     grade = clean_text(value).upper().replace(" ", "")
     grade = grade.replace("−", "-")
+
     if grade.startswith("A"):
         return "A"
     if grade.startswith("B"):
@@ -111,30 +116,37 @@ def normalize_grade(value: object) -> str:
         return "C+"
     if grade == "D" or "D" in grade:
         return "D"
+
     return ""
 
 
 def find_header_row(raw: pd.DataFrame) -> int:
     """Find the row containing Table 1 column headers."""
     max_rows = min(20, len(raw))
+
     for i in range(max_rows):
         row = [normalize_header(x) for x in raw.iloc[i].tolist()]
+
         has_terrane = "terrane" in row
         has_rock = any(x in row for x in ["rockname", "rock name", "unit"])
         has_age = any("nominal age" in x or x == "age" or x == "age ma" for x in row)
         has_pole = any(x in row for x in ["plat", "plong", "clat", "clong"])
+
         if has_terrane and has_rock and has_age and has_pole:
             return i
+
     raise RuntimeError("Could not detect the Table 1 header row. Check the Excel file/header names.")
 
 
 def pick_column(columns: Iterable[str], candidates: list[str], required: bool = True) -> str | None:
     """Find a dataframe column by normalized candidate names."""
     normalized = {normalize_header(c): c for c in columns}
+
     for cand in candidates:
         key = normalize_header(cand)
         if key in normalized:
             return normalized[key]
+
     if required:
         raise RuntimeError(
             "Missing required column. Tried: "
@@ -142,6 +154,7 @@ def pick_column(columns: Iterable[str], candidates: list[str], required: bool = 
             + ". Available columns: "
             + ", ".join(map(str, columns))
         )
+
     return None
 
 
@@ -156,8 +169,10 @@ def read_table1() -> pd.DataFrame:
     sheet_name = next((s for s in SHEET_CANDIDATES if s in xls.sheet_names), xls.sheet_names[0])
 
     raw = pd.read_excel(INPUT_XLSX, sheet_name=sheet_name, header=None, dtype=object)
+
     header_idx = find_header_row(raw)
     header = [clean_text(x) for x in raw.iloc[header_idx].tolist()]
+
     df = raw.iloc[header_idx + 1 :].copy()
     df.columns = header
     df = df.dropna(how="all")
@@ -165,6 +180,7 @@ def read_table1() -> pd.DataFrame:
 
     print(f"Read {INPUT_XLSX.name}, sheet '{sheet_name}', header row {header_idx + 1}")
     print(f"Rows after removing empty rows: {len(df)}")
+
     return df
 
 
@@ -174,15 +190,44 @@ def build_baltica_poles(df: pd.DataFrame) -> pd.DataFrame:
     c_terrane = pick_column(cols, ["Terrane", "Block", "Craton"])
     c_unit = pick_column(cols, ["ROCKNAME", "Rock name", "Unit"])
     c_age = pick_column(cols, ["nominal age", "Age nominal", "Age_Ma", "Age Ma", "Age"])
-    c_age_low = pick_column(cols, ["lomagage", "lowmagage", "Age low", "age_min", "young age"], required=False)
-    c_age_high = pick_column(cols, ["himagage", "highmagage", "Age high", "age_max", "old age"], required=False)
+
+    c_age_low = pick_column(
+        cols,
+        ["lomagage", "lowmagage", "Age low", "age_min", "young age"],
+        required=False,
+    )
+
+    c_age_high = pick_column(
+        cols,
+        ["himagage", "highmagage", "Age high", "age_max", "old age"],
+        required=False,
+    )
+
     c_grade = pick_column(cols, ["Grade", "Rating"])
-    c_slon = pick_column(cols, ["S_LONG", "SLONG", "SLONG°E", "site lon", "site longitude"])
-    c_slat = pick_column(cols, ["S_LAT", "SLAT", "SLAT°N", "site lat", "site latitude"])
+
+    c_slon = pick_column(
+        cols,
+        ["S_LONG", "SLONG", "SLONG°E", "site lon", "site longitude"],
+    )
+
+    c_slat = pick_column(
+        cols,
+        ["S_LAT", "SLAT", "SLAT°N", "site lat", "site latitude"],
+    )
 
     # Use corrected pole coordinates if Table 1 has them; otherwise use PLAT/PLONG.
-    c_plat = pick_column(cols, ["Clat", "CLAT", "Corrected lat", "Corrected latitude"], required=False)
-    c_plon = pick_column(cols, ["Clong", "CLONG", "Corrected long", "Corrected longitude"], required=False)
+    c_plat = pick_column(
+        cols,
+        ["Clat", "CLAT", "Corrected lat", "Corrected latitude"],
+        required=False,
+    )
+
+    c_plon = pick_column(
+        cols,
+        ["Clong", "CLONG", "Corrected long", "Corrected longitude"],
+        required=False,
+    )
+
     c_plat_orig = pick_column(cols, ["PLAT", "Plat", "P_LAT", "Pole latitude"])
     c_plon_orig = pick_column(cols, ["PLONG", "Plong", "P_LONG", "Pole longitude"])
 
@@ -190,6 +235,7 @@ def build_baltica_poles(df: pd.DataFrame) -> pd.DataFrame:
     c_ref = pick_column(cols, ["Pole ref", "Reference", "References", "Authors"], required=False)
 
     rows: list[dict[str, str]] = []
+
     for _, r in df.iterrows():
         terrane = clean_text(r[c_terrane])
         unit = clean_text(r[c_unit])
@@ -204,6 +250,7 @@ def build_baltica_poles(df: pd.DataFrame) -> pd.DataFrame:
 
         age_low = clean_number(r[c_age_low]) if c_age_low else None
         age_high = clean_number(r[c_age_high]) if c_age_high else None
+
         age_values = [x for x in [age_low, age_high] if x is not None]
         age_min = min(age_values) if age_values else age
         age_max = max(age_values) if age_values else age
@@ -213,17 +260,28 @@ def build_baltica_poles(df: pd.DataFrame) -> pd.DataFrame:
 
         p_lat = clean_number(r[c_plat]) if c_plat else None
         p_lon = clean_number(r[c_plon]) if c_plon else None
+
         if p_lat is None:
             p_lat = clean_number(r[c_plat_orig])
+
         if p_lon is None:
             p_lon = clean_number(r[c_plon_orig])
+
         if p_lon is not None:
             p_lon = p_lon % 360
 
         a95 = clean_number(r[c_a95])
         ref = clean_text(r[c_ref]) if c_ref else ""
 
-        if not terrane or not unit or s_lon is None or s_lat is None or p_lon is None or p_lat is None or a95 is None:
+        if (
+            not terrane
+            or not unit
+            or s_lon is None
+            or s_lat is None
+            or p_lon is None
+            or p_lat is None
+            or a95 is None
+        ):
             # Skip incomplete rows because they cannot be mapped/rebuilt reliably.
             continue
 
@@ -245,9 +303,11 @@ def build_baltica_poles(df: pd.DataFrame) -> pd.DataFrame:
         )
 
     out = pd.DataFrame(rows, columns=OUTPUT_COLUMNS)
-out["_sort_age"] = pd.to_numeric(out["Age_Ma"], errors="coerce")
-out = out.sort_values(["_sort_age", "Terrane", "Unit"])
-out = out.drop(columns=["_sort_age"])
+
+    out["_sort_age"] = pd.to_numeric(out["Age_Ma"], errors="coerce")
+    out = out.sort_values(["_sort_age", "Terrane", "Unit"])
+    out = out.drop(columns=["_sort_age"])
+
     return out
 
 
@@ -259,7 +319,14 @@ def main() -> None:
         raise RuntimeError("No A/B/C+ poles were exported. Check Grade/coordinate columns in Table 1.")
 
     OUTPUT_CSV.parent.mkdir(parents=True, exist_ok=True)
-    out.to_csv(OUTPUT_CSV, sep=";", index=False, encoding="utf-8-sig", quoting=csv.QUOTE_MINIMAL)
+
+    out.to_csv(
+        OUTPUT_CSV,
+        sep=";",
+        index=False,
+        encoding="utf-8-sig",
+        quoting=csv.QUOTE_MINIMAL,
+    )
 
     print(f"Saved {len(out)} poles to {OUTPUT_CSV}")
     print("Grade counts:")
