@@ -94,13 +94,15 @@ def clean_number(value: object) -> float | None:
     except ValueError:
         pass
 
-    # Range or mixed text: extract all numbers
-    nums = re.findall(r"[-+]?\d+(?:\.\d+)?", text)
+    # Special case: range written as 21--27, 21-27, 21–27
+    range_match = re.match(r"^\s*([+-]?\d+(?:\.\d+)?)\s*-+\s*([+-]?\d+(?:\.\d+)?)\s*$", text)
+    if range_match:
+        a = float(range_match.group(1))
+        b = float(range_match.group(2))
+        return (a + b) / 2.0
 
-    if len(nums) >= 2:
-        vals = [float(n) for n in nums[:2]]
-        return sum(vals) / 2.0
-
+    # Mixed text: extract numbers and use the first one
+    nums = re.findall(r"[+-]?\d+(?:\.\d+)?", text)
     if len(nums) == 1:
         return float(nums[0])
 
