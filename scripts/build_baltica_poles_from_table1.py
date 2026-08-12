@@ -62,9 +62,20 @@ def clean_text(value: object) -> str:
 
 
 def clean_number(value: object) -> float | None:
-    """Convert a table cell to a float, accepting decimal commas and stray spaces."""
+    """
+    Convert a table cell to a float.
+
+    Also handles coordinate ranges such as:
+        21--27
+        21-27
+        21–27
+
+    For ranges, the midpoint is used.
+    Example: 21--27 -> 24
+    """
     if value is None:
         return None
+
     if isinstance(value, (int, float)):
         if isinstance(value, float) and math.isnan(value):
             return None
@@ -75,16 +86,25 @@ def clean_number(value: object) -> float | None:
         return None
 
     text = text.replace(",", ".")
-    text = re.sub(r"[^0-9.+\-eE]", "", text)
+    text = text.replace("–", "-").replace("—", "-").replace("−", "-")
 
-    if text in {"", "+", "-", "."}:
-        return None
-
+    # Direct numeric value
     try:
         return float(text)
     except ValueError:
-        return None
+        pass
 
+    # Range or mixed text: extract all numbers
+    nums = re.findall(r"[-+]?\d+(?:\.\d+)?", text)
+
+    if len(nums) >= 2:
+        vals = [float(n) for n in nums[:2]]
+        return sum(vals) / 2.0
+
+    if len(nums) == 1:
+        return float(nums[0])
+
+    return None
 
 def fmt_number(value: float | None) -> str:
     """Format numeric values compactly for the CSV."""
