@@ -31,16 +31,45 @@ class MapLegend(MacroElement):
                     font-size: 13px;
                     line-height: 1.45;
                     box-shadow: 0 1px 5px rgba(0,0,0,0.25);
-                    min-width: 175px;
+                    min-width: 190px;
                 ">
-                    <b>Baltica poles</b><br>
-                    <span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#777;border:1.5px solid #111;margin-right:5px;"></span>
-                    A-grade / A-like<br>
-                    <span style="display:inline-block;width:13px;height:13px;background:#777;border:1.5px solid #111;transform:rotate(45deg);margin-right:5px;"></span>
+                    <b>Sampling localities</b><br>
+
+                    <span style="
+                        display:inline-block;
+                        width:13px;
+                        height:13px;
+                        background:#777;
+                        border:1.6px solid #111;
+                        transform:rotate(45deg);
+                        margin-right:7px;
+                    "></span>
+                    A-grade<br>
+
+                    <span style="
+                        display:inline-block;
+                        width:13px;
+                        height:13px;
+                        background:#777;
+                        border:1.6px solid #111;
+                        margin-right:7px;
+                    "></span>
                     B-grade<br>
-                    <span style="display:inline-block;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:13px solid #777;margin-right:5px;"></span>
-                    C/C+ grade<br>
-                    <span style="font-size:12px;color:#444;">Color = nominal age</span>
+
+                    <span style="
+                        display:inline-block;
+                        width:13px;
+                        height:13px;
+                        border-radius:50%;
+                        background:#777;
+                        border:1.6px solid #111;
+                        margin-right:7px;
+                    "></span>
+                    C+-grade<br>
+
+                    <span style="font-size:12px;color:#444;">
+                        Colour = nominal age
+                    </span>
                 </div>
             `;
             L.DomEvent.disableClickPropagation(div);
@@ -67,7 +96,7 @@ def read_csv_flexible(path):
                     sep=sep,
                     engine="python",
                     encoding=enc,
-                    on_bad_lines="skip"
+                    on_bad_lines="skip",
                 )
                 if len(df.columns) >= 4:
                     print(f"Read {path} using encoding={enc}, separator={repr(sep)}")
@@ -76,14 +105,21 @@ def read_csv_flexible(path):
                 pass
 
     raise ValueError(f"Could not read CSV file correctly: {path}")
+
+
 def pick_col(df, names, required=False):
     lookup = {norm(c): c for c in df.columns}
+
     for n in names:
         key = norm(n)
         if key in lookup:
             return lookup[key]
+
     if required:
-        raise KeyError(f"Missing required column. Tried {names}. Available columns: {list(df.columns)}")
+        raise KeyError(
+            f"Missing required column. Tried {names}. Available columns: {list(df.columns)}"
+        )
+
     return None
 
 
@@ -101,23 +137,89 @@ def num(x, nd=1):
 
 
 def marker_html(color, grade):
-    g = str(grade).upper().strip()
+    """
+    Marker convention matched to manuscript geology map:
+        A-grade  = diamond
+        B-grade  = square
+        C+-grade = circle
+    """
+    g = str(grade).upper().strip().replace(" ", "")
+
+    # A-grade = diamond
     if g.startswith("A"):
-        return f'<div style="width:14px;height:14px;background:{color};border:1.8px solid #111;border-radius:50%;opacity:.95"></div>'
+        return f"""
+        <div style="
+            width:14px;
+            height:14px;
+            background:{color};
+            border:1.8px solid #111;
+            transform:rotate(45deg);
+            opacity:.95;
+        "></div>
+        """
+
+    # B-grade = square
     if g.startswith("B"):
-        return f'<div style="width:14px;height:14px;background:{color};border:1.8px solid #111;transform:rotate(45deg);opacity:.95"></div>'
-    return f'<div style="width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:15px solid {color};filter:drop-shadow(0 0 .8px #111);opacity:.95"></div>'
+        return f"""
+        <div style="
+            width:14px;
+            height:14px;
+            background:{color};
+            border:1.8px solid #111;
+            opacity:.95;
+        "></div>
+        """
+
+    # C+ grade = circle
+    return f"""
+    <div style="
+        width:14px;
+        height:14px;
+        background:{color};
+        border:1.8px solid #111;
+        border-radius:50%;
+        opacity:.95;
+    "></div>
+    """
 
 
-def assessment_link(pole_id):
-    if not pole_id or str(pole_id).lower() == "nan":
-        return ""
+def assessment_link(pole_id="", unit="", age=""):
+    """
+    Try to link a marker to a pole-assessment page.
+
+    The current Baltica_poles.csv may not contain pole_id, so this function
+    also searches by normalized unit name.
+    """
     pole_dir = REPO / "pole_assessments"
     if not pole_dir.exists():
         return ""
-    pid = norm(pole_id)
-    hits = list(pole_dir.glob(f"*{pid}*.html"))
-    return "../pole_assessments/" + hits[0].name if hits else ""
+
+    html_files = list(pole_dir.glob("*.html"))
+
+    search_terms = []
+
+    if pole_id and str(pole_id).lower() != "nan":
+        search_terms.append(norm(pole_id))
+
+    if unit and str(unit).lower() != "nan":
+        unit_slug = norm(unit)
+        search_terms.append(unit_slug)
+
+        # Also try a simplified version without common suffix words.
+        simplified = re.sub(r"(_c|_precise|_group_a|_group_b)$", "", unit_slug)
+        if simplified and simplified != unit_slug:
+            search_terms.append(simplified)
+
+    # First: exact or strong filename match
+    for term in search_terms:
+        if not term:
+            continue
+
+        for f in html_files:
+            if term in norm(f.stem):
+                return "../pole_assessments/" + f.name
+
+    return ""
 
 
 def main():
@@ -130,8 +232,19 @@ def main():
     c_unit = pick_col(df, ["Unit", "ROCKNAME", "rockname", "unit", "name"])
     c_age = pick_col(df, ["Age_Ma", "age_ma", "age", "nominal_age_ma"], required=True)
     c_grade = pick_col(df, ["Rating", "rating", "grade", "Grade"], required=True)
-    c_slat = pick_col(df, ["S_LAT", "site_lat", "Site_lat", "lat", "sampling_lat"], required=True)
-    c_slon = pick_col(df, ["S_LONG", "site_lon", "Site_lon", "lon", "lng", "sampling_lon"], required=True)
+
+    # IMPORTANT: these are sampling/locality coordinates, not paleomagnetic pole coordinates.
+    c_slat = pick_col(
+        df,
+        ["S_LAT", "site_lat", "Site_lat", "SLAT", "lat", "sampling_lat"],
+        required=True,
+    )
+    c_slon = pick_col(
+        df,
+        ["S_LONG", "site_lon", "Site_lon", "SLONG", "lon", "lng", "sampling_lon"],
+        required=True,
+    )
+
     c_plat = pick_col(df, ["P_LAT", "Plat", "pole_lat", "paleopole_lat"])
     c_plon = pick_col(df, ["P_LONG", "Plon", "pole_lon", "paleopole_lon"])
     c_a95 = pick_col(df, ["A95", "a95", "alpha95"])
@@ -143,6 +256,7 @@ def main():
             df[c] = pd.to_numeric(df[c], errors="coerce")
 
     df = df.dropna(subset=[c_slat, c_slon]).copy()
+
     if df.empty:
         raise ValueError("No valid site coordinates found in Baltica_poles.csv")
 
@@ -163,26 +277,48 @@ def main():
     layer = folium.FeatureGroup(name="Paleomagnetic poles", show=True)
 
     for _, row in df.iterrows():
-        color = cmap(float(row[c_age])) if cmap is not None and pd.notna(row[c_age]) else "#666666"
+        color = (
+            cmap(float(row[c_age]))
+            if cmap is not None and pd.notna(row[c_age])
+            else "#666666"
+        )
+
         unit = row[c_unit] if c_unit else row[c_pid] if c_pid else "Pole"
         pole_id = str(row[c_pid]).strip() if c_pid else ""
-        link = assessment_link(pole_id)
-        link_html = f'<p><a href="{link}" target="_blank">Open pole assessment page</a></p>' if link else ""
+
+        link = assessment_link(
+            pole_id=pole_id,
+            unit=str(unit),
+            age=str(row[c_age]) if pd.notna(row[c_age]) else "",
+        )
+
+        link_html = (
+            f'<p><a href="{link}" target="_blank">Open pole assessment page</a></p>'
+            if link
+            else ""
+        )
+
         popup = f"""
         <div style="font-size:13px;line-height:1.35;min-width:260px;">
           <h4 style="margin:0 0 6px 0;">{safe(unit)}</h4>
           <b>Age:</b> {num(row[c_age], 0)} Ma<br>
           <b>Grade:</b> {safe(row[c_grade])}<br>
           <b>Sampling locality:</b> {num(row[c_slat], 3)}°N, {num(row[c_slon], 3)}°E<br>
-          <b>Pole:</b> Plat {num(row[c_plat], 2) if c_plat else "—"}°, Plon {num(row[c_plon], 2) if c_plon else "—"}°E<br>
+          <b>Pole:</b> Plat {num(row[c_plat], 2) if c_plat else "—"}°,
+          Plon {num(row[c_plon], 2) if c_plon else "—"}°E<br>
           <b>A95:</b> {num(row[c_a95], 1) if c_a95 else "—"}°<br>
           <b>Reference:</b> {safe(row[c_ref]) if c_ref else "—"}
           {link_html}
         </div>
         """
+
         folium.Marker(
             location=[float(row[c_slat]), float(row[c_slon])],
-            icon=folium.DivIcon(html=marker_html(color, row[c_grade]), icon_size=(18, 18), icon_anchor=(9, 9)),
+            icon=folium.DivIcon(
+                html=marker_html(color, row[c_grade]),
+                icon_size=(18, 18),
+                icon_anchor=(9, 9),
+            ),
             popup=folium.Popup(popup, max_width=380),
             tooltip=safe(unit),
         ).add_to(layer)
@@ -191,12 +327,23 @@ def main():
     m.get_root().add_child(MapLegend())
     folium.LayerControl(collapsed=False).add_to(m)
 
-    m.get_root().html.add_child(folium.Element("""
+    m.get_root().html.add_child(
+        folium.Element(
+            """
     <style>
-    .folium-map { width: 100% !important; height: 720px !important; min-height: 720px !important; }
-    .leaflet-container { width: 100% !important; height: 720px !important; }
+    .folium-map {
+        width: 100% !important;
+        height: 720px !important;
+        min-height: 720px !important;
+    }
+    .leaflet-container {
+        width: 100% !important;
+        height: 720px !important;
+    }
     </style>
-    """))
+    """
+        )
+    )
 
     map_html = m.get_root().render()
 
@@ -207,17 +354,75 @@ def main():
   <title>Interactive pole map — Baltica Precambrian Poles</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body {{ margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:#f4f6fb; color:#07152f; }}
-    .layout {{ display:grid; grid-template-columns:290px 1fr; min-height:100vh; }}
-    nav {{ background:white; border-right:1px solid #d8e0ee; padding:28px 24px; position:sticky; top:0; height:100vh; box-sizing:border-box; overflow-y:auto; }}
-    nav h1 {{ font-size:24px; line-height:1.05; color:#0c3c90; margin:0 0 8px 0; text-transform:uppercase; letter-spacing:.02em; }}
-    nav .subtitle {{ font-weight:700; font-size:14px; margin-bottom:34px; }}
-    nav a {{ display:block; color:#06152f; text-decoration:none; font-weight:650; padding:10px 12px; border-radius:10px; margin:3px 0; }}
-    nav a.active {{ color:#1455d9; background:#dce9ff; }}
-    main {{ padding:48px 56px 70px; max-width:1250px; }}
-    h2 {{ font-size:42px; margin:0 0 24px 0; letter-spacing:-0.03em; }}
-    .card {{ background:white; border-radius:22px; padding:28px; box-shadow:0 14px 38px rgba(15,23,42,.08); margin-bottom:28px; }}
-    .intro {{ font-size:18px; line-height:1.65; max-width:1000px; margin-bottom:24px; }}
+    body {{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:#f4f6fb;
+      color:#07152f;
+    }}
+    .layout {{
+      display:grid;
+      grid-template-columns:290px 1fr;
+      min-height:100vh;
+    }}
+    nav {{
+      background:white;
+      border-right:1px solid #d8e0ee;
+      padding:28px 24px;
+      position:sticky;
+      top:0;
+      height:100vh;
+      box-sizing:border-box;
+      overflow-y:auto;
+    }}
+    nav h1 {{
+      font-size:24px;
+      line-height:1.05;
+      color:#0c3c90;
+      margin:0 0 8px 0;
+      text-transform:uppercase;
+      letter-spacing:.02em;
+    }}
+    nav .subtitle {{
+      font-weight:700;
+      font-size:14px;
+      margin-bottom:34px;
+    }}
+    nav a {{
+      display:block;
+      color:#06152f;
+      text-decoration:none;
+      font-weight:650;
+      padding:10px 12px;
+      border-radius:10px;
+      margin:3px 0;
+    }}
+    nav a.active {{
+      color:#1455d9;
+      background:#dce9ff;
+    }}
+    main {{
+      padding:48px 56px 70px;
+      max-width:1250px;
+    }}
+    h2 {{
+      font-size:42px;
+      margin:0 0 24px 0;
+      letter-spacing:-0.03em;
+    }}
+    .card {{
+      background:white;
+      border-radius:22px;
+      padding:28px;
+      box-shadow:0 14px 38px rgba(15,23,42,.08);
+      margin-bottom:28px;
+    }}
+    .intro {{
+      font-size:18px;
+      line-height:1.65;
+      max-width:1000px;
+      margin-bottom:24px;
+    }}
   </style>
 </head>
 <body>
@@ -236,9 +441,11 @@ def main():
   <main>
     <h2>Interactive pole map</h2>
     <p class="intro">
-      Interactive map of the Baltica Precambrian pole compilation. Markers show present-day
-      sampling localities, colored by nominal age and shaped by reliability grade. Click a
-      marker to view pole information and links to available pole-assessment pages.
+      Interactive map of the Baltica Precambrian pole compilation. Markers show
+      present-day sampling localities from the master pole table. Marker colour
+      indicates nominal age, and marker shape indicates reliability grade:
+      diamond = A-grade, square = B-grade, circle = C+-grade. Click a marker
+      to view pole information and links to available pole-assessment pages.
     </p>
     <section class="card">
       {map_html}
@@ -247,8 +454,10 @@ def main():
 </div>
 </body>
 </html>"""
+
     OUTPUT_HTML.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_HTML.write_text(page, encoding="utf-8")
+
     print(f"Wrote {OUTPUT_HTML}")
 
 
