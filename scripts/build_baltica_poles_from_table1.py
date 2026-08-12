@@ -245,8 +245,10 @@ def build_baltica_poles(df: pd.DataFrame) -> pd.DataFrame:
         )
 
     out = pd.DataFrame(rows, columns=OUTPUT_COLUMNS)
-    out = out.sort_values(["Age_Ma", "Terrane", "Unit"], key=lambda col: pd.to_numeric(col, errors="ignore"))
-    out = out.reset_index(drop=True)
+out["_sort_age"] = pd.to_numeric(out["Age_Ma"], errors="coerce")
+out = out.sort_values(["_sort_age", "Terrane", "Unit"])
+out = out.drop(columns=["_sort_age"])
+out = out.reset_index(drop=True)
     return out
 
 
